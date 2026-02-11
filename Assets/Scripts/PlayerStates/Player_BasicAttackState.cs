@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player_BasicAttackState : EntityState {
+public class Player_BasicAttackState : PlayerState {
     
     private float attackVelocityTimer;
     private const int FirstComboIndex = 1;  // Ilk attack deðeri için sabit bir sayý kullanmak yerine onu deðiþtirilemez bir deðiþken kullanarak daha okunaklý hale getirdik. 

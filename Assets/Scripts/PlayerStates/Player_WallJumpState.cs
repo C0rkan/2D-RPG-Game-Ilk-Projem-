@@ -1,7 +1,7 @@
 using System.Xml.Serialization;
 using UnityEngine;
 
-public class Player_WallJumpState : EntityState
+public class Player_WallJumpState : PlayerState
 {
     public Player_WallJumpState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName) {
     }
