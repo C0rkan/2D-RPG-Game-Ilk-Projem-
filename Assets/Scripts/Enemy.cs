@@ -3,6 +3,7 @@ using UnityEngine;
 public class Enemy : Entity {
     public EnemyIdleState idleState;
     public EnemyMoveState moveState;
+    public EnemyAttackState attackState; 
 
     [Header("Movement details")] 
     public float idleTime = 2;

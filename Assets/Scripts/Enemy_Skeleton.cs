@@ -6,6 +6,7 @@ public class Enemy_Skeleton : Enemy
         base.Awake();
         idleState = new EnemyIdleState(this, stateMachine, "idle");
         moveState= new EnemyMoveState(this, stateMachine, "move");
+        attackState = new EnemyAttackState(this, stateMachine, "attack");
     }
 
     protected override void Start() {
