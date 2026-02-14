@@ -8,7 +8,7 @@ public class EnemyGroundedState : EnemyState
     public override void Update() {
         base.Update();
 
-        if (enemy.PlayerDetection() == true) {
+        if (enemy.PlayerDetected() == true) {
             stateMachine.ChangeState(enemy.battleState);
         }
     }
