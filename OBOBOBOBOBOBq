@@ -1,0 +1,47 @@
+[33mcommit de12cc329e2ab9f04bb5396e2a9f3d9d4b521b6d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Coskun <coskun.erol03@gmail.com>
+Date:   Sat Feb 14 06:55:08 2026 +0300
+
+    Enemy Movement Improvement
+
+[33mcommit 86a5acdc6107ead368fd2db005f827711b35bc49[m
+Author: Coskun <coskun.erol03@gmail.com>
+Date:   Sat Feb 14 05:36:01 2026 +0300
+
+    Enemy chase and attack added.
+
+[33mcommit 8404df526c98e1e076aad01f8ec0997aecac8f9b[m
+Author: Coskun <coskun.erol03@gmail.com>
+Date:   Sat Feb 14 02:10:14 2026 +0300
+
+    Player Detection Added
+
+[33mcommit dbcbfc4836b6c6581c5dc5ca1eddddf2e7bc3a33[m
+Author: Coskun <coskun.erol03@gmail.com>
+Date:   Thu Feb 12 03:54:09 2026 +0300
+
+    Enemy Attack State
+
+[33mcommit 6dd251a908a40ef330241ad094fa0682ac93b1d7[m
+Author: Coskun <coskun.erol03@gmail.com>
+Date:   Thu Feb 12 03:11:33 2026 +0300
+
+    Enenmy Walk n Idle State
+
+[33mcommit 858a8e4b080a7454bf577b3556b652866c8c18fb[m
+Author: Coskun <coskun.erol03@gmail.com>
+Date:   Thu Feb 12 00:37:10 2026 +0300
+
+    Enemy State Machine olusturulmaya baslandi.
+
+[33mcommit 39d7d6153b0af2d6053d681e8360abc0b5ed7a49[m
+Author: Coşkun Erol <162565587+C0rkan@users.noreply.github.com>
+Date:   Wed Feb 11 17:39:22 2026 +0300
+
+    README.md dosyası oluşturuldu.
+
+[33mcommit b8a623456e3984233babcecbfee564cbecd6ac30[m
+Author: Coskun <coskun.erol03@gmail.com>
+Date:   Wed Feb 11 17:35:21 2026 +0300
+
+    gitignore eklendi ve gerekli düzenleme yapılarak ilk commit atıldı.
