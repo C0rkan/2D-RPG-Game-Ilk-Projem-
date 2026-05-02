@@ -10,9 +10,10 @@ public class EnemyBattleState : EnemyState {
     public override void Enter() {
         base.Enter();
 
-        if (player == null) {
-            player = enemy.PlayerDetected().transform;
-        }
+        UpdateBattleTimer();
+        
+        if (player == null)                 //player ??= enemy.GetPlayerReferance();  -> if ile ayný iþlevi var sadece tek satýrda yazmak istersen opsiyondur.
+            player = enemy.GetPlayerReferance();
 
         if (ShouldRetreat()) {
             rb.linearVelocity = new Vector2(enemy.retreatVelocity.x * -DirectionToPlayer(), rb.linearVelocity.y);
