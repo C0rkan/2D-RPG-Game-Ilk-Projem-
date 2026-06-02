@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 304577049}
   - component: {fileID: 304577053}
   - component: {fileID: 304577054}
+  - component: {fileID: 304577055}
   m_Layer: 8
   m_Name: Enemy_Skeleton
   m_TagString: Untagged
@@ -287,6 +288,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
   maxHp: 100
   isDead: 0
+--- !u!114 &304577055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304577048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ecbe3dffb0bcf34f928a5925c5f6088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityVFX
+  onDamageVfxMaterial: {fileID: 2100000, guid: 849f2b3fea2748c41a336a020e67c77c, type: 2}
+  onDamageDuration: 0.2
 --- !u!1 &329167421
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +405,7 @@ GameObject:
   - component: {fileID: 416988579}
   - component: {fileID: 416988578}
   - component: {fileID: 416988580}
+  - component: {fileID: 416988581}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -532,6 +548,20 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &416988581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416988575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ecbe3dffb0bcf34f928a5925c5f6088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityVFX
+  onDamageVfxMaterial: {fileID: 2100000, guid: 849f2b3fea2748c41a336a020e67c77c, type: 2}
+  onDamageDuration: 0.2
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
