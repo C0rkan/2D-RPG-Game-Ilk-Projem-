@@ -3,6 +3,7 @@ using UnityEngine;
 public class StateMachine {
 
     public EntityState currentState { get; private set; } // baþka classlarca görülebilir ama deðiþtirilemez!!!
+    public bool canChangeState = true;
 
     public void Initialize(EntityState startState) {
         currentState = startState;
@@ -10,6 +11,10 @@ public class StateMachine {
     }
 
     public void ChangeState(EntityState newState) {
+        if (canChangeState == false) {
+            return;
+        }
+        
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
@@ -18,4 +23,7 @@ public class StateMachine {
     public void UpdateActiveState() {
         currentState.Update();
     }
+
+    public void SwitchOffStateMachine() => canChangeState = false;
+
 }

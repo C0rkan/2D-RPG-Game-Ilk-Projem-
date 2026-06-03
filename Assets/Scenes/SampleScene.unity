@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8f7d5a3ad28e445874277e009ce469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity_Combat
-  damage: 10
+  damage: 25
   targetCheck: {fileID: 814778481}
   targetCheckRadius: 1
   whatIsTarget:
@@ -507,8 +507,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.3243556}
-  m_Size: {x: 0.78, y: 1.9882889}
+  m_Offset: {x: 0, y: -0.3196683}
+  m_Size: {x: 0.78, y: 1.9789143}
   m_Direction: 0
 --- !u!50 &416988579
 Rigidbody2D:

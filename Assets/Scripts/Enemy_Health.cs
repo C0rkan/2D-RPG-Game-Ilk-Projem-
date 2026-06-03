@@ -12,10 +12,16 @@ public class Enemy_Health : Entity_Health {
 
     public override void TakeDamage(float damage, Transform damageDealer) {
 
+        base.TakeDamage(damage, damageDealer);
+
+        if (isDead) {
+            return;
+        }
+
         if (damageDealer.CompareTag("Player")) {            //if (damageDealer.GetComponent<Player> != null) ayný if koþulunun faklý bir þekilde yazýmý
             enemy.TryEnterBattleState(damageDealer);
         }
         
-        base.TakeDamage(damage, damageDealer);
+        
     }
 }
