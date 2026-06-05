@@ -37,7 +37,7 @@ public class Entity : MonoBehaviour
         
     }
 
-    private void Update() {
+    protected virtual void Update() {
         HandleCollisionDetection();
         stateMachine.UpdateActiveState();
     }
