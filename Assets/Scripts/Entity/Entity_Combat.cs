@@ -1,9 +1,9 @@
-using System.Diagnostics.Contracts;
+ using System.Diagnostics.Contracts;
 using UnityEngine;
 
 public class Entity_Combat : MonoBehaviour {
 
-
+    private EntityVFX vfx;
     public float damage = 10;
 
     [Header("Target Detection")]
@@ -11,13 +11,24 @@ public class Entity_Combat : MonoBehaviour {
     [SerializeField] private float targetCheckRadius = 1;
     [SerializeField] private LayerMask whatIsTarget;
 
+
+    private void Awake() {
+        vfx = GetComponent<EntityVFX>();
+    }
+
+
     public void PerformAttack() {
         GetDetectedColliders();
 
         foreach(var target in GetDetectedColliders()) {
             IDamagable damagable = target.GetComponent<IDamagable>();
-            damagable?.TakeDamage(damage, transform);                //same as    if(targetHelath != null) 
-                                                                    //              tagetHealth.TakeDamage(daamge);
+            
+            if (damagable == null) {
+                continue;
+            }
+            
+            damagable.TakeDamage(damage, transform);                //same as    if(targetHelath != null) 
+            vfx.CreateOnHitVFX(target.transform);                                //              tagetHealth.TakeDamage(daamge);
 
         }
 
