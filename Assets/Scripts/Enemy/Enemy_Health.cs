@@ -10,18 +10,18 @@ public class Enemy_Health : Entity_Health {
         enemy = GetComponent<Enemy>();
     }
 
-    public override void TakeDamage(float damage, Transform damageDealer) {
+    public override bool TakeDamage(float damage, Transform damageDealer) {
 
-        base.TakeDamage(damage, damageDealer);
+        bool wasHit = base.TakeDamage(damage, damageDealer);
 
-        if (isDead) {
-            return;
+        if (wasHit == false) {
+            return false;
         }
 
         if (damageDealer.CompareTag("Player")) {            //if (damageDealer.GetComponent<Player> != null) ayný if koþulunun faklý bir þekilde yazýmý
             enemy.TryEnterBattleState(damageDealer);
         }
-        
-        
+
+        return true;
     }
 }

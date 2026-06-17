@@ -16,5 +16,18 @@ public class Entity_Stats : MonoBehaviour
 
         return baseHp + bonusHp;
     }
-    
+
+    public float GetEvasion() {
+        
+        float baseEvasion = defense.evasion.GetValue();
+        float bonusEvasion = major.agility.GetValue() * .5f;
+
+        float totalEvasion = baseEvasion + bonusEvasion;
+        float evasionCap = 85;
+
+        float finalEvasion = Mathf.Clamp(totalEvasion, 0, evasionCap);
+
+        return finalEvasion;
+    }
+
 }
