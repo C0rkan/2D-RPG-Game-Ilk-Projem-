@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -28,6 +29,29 @@ public class Entity_Stats : MonoBehaviour
 
         return finalDamage;
 
+    }
+
+    public float GetArmorMitigation( float armorReduction ) {
+        float baseArmor = defense.armor.GetValue();
+        float bonusArmor = major.vitality.GetValue(); // Every vit point gives 1 armor
+        float totalArmor = baseArmor + bonusArmor;
+                                 
+        float reductionMultipiler = Mathf.Clamp(1 - armorReduction,0,1);
+        float effectiveArmor = totalArmor * reductionMultipiler;
+
+        float mitigation = effectiveArmor / (effectiveArmor+ 100); //eg. if u have 150 armor -> 150 / (150 +100) = .6f and thats mean u'll get .4f of damage 
+        float mitigationCap = .85f;
+
+        float finalMitigation = Mathf.Clamp(mitigation, 0, mitigationCap);
+        
+        return finalMitigation;
+    }
+
+    public float GetArmorReduction() {
+
+        float finalReduction = offense.armorReduction.GetValue() / 100;
+
+        return finalReduction;
     }
 
 
