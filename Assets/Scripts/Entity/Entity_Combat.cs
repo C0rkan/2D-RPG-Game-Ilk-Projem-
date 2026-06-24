@@ -4,7 +4,7 @@ using UnityEngine;
 public class Entity_Combat : MonoBehaviour {
 
     private EntityVFX vfx;
-    public float damage = 10;
+    private Entity_Stats stats;
 
     [Header("Target Detection")]
     [SerializeField] private Transform targetCheck;
@@ -14,6 +14,7 @@ public class Entity_Combat : MonoBehaviour {
 
     private void Awake() {
         vfx = GetComponent<EntityVFX>();
+        stats = GetComponent<Entity_Stats>();
     }
 
 
@@ -26,11 +27,12 @@ public class Entity_Combat : MonoBehaviour {
             if (damagable == null) {
                 continue;
             }
-            
+             
+            float damage = stats.GetPhyiscalDamage(out bool isCrit);
             bool targetGotHit = damagable.TakeDamage(damage, transform);                //same as    if(targetHelath != null) 
             
             if (targetGotHit) {
-                vfx.CreateOnHitVFX(target.transform);                                //              tagetHealth.TakeDamage(daamge);
+                vfx.CreateOnHitVFX(target.transform,isCrit);                                //              tagetHealth.TakeDamage(daamge);
             }
 
 
