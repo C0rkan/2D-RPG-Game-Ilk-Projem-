@@ -33,7 +33,7 @@ public class Entity_Health : MonoBehaviour, IDamagable
     }
 
 
-    public virtual bool TakeDamage(float damage ,float elementalDamage ,Transform damageDealer) {
+    public virtual bool TakeDamage(float damage ,float elementalDamage ,ElementalType elemental ,Transform damageDealer) {
 
         if (isDead)
             return false;
@@ -46,27 +46,34 @@ public class Entity_Health : MonoBehaviour, IDamagable
         Entity_Stats attackerStats = damageDealer.GetComponent<Entity_Stats>();
         float armorReduction = attackerStats != null ? attackerStats.GetArmorReduction() : 0;
 
-        
-        float mitigation = stats.GetArmorMitigation(armorReduction);
-        float finalDamage = damage * ( 1 - mitigation );
 
-        Vector2 knockback = CalculateKnockback(finalDamage, damageDealer);
-        float duration = CalculationDuration(finalDamage);
+        float mitigation = stats.GetArmorMitigation(armorReduction);
+        float physicalDamage = damage * (1 - mitigation);
+
+        float elementalResistance = stats.GetElementalResitance(elemental);
+        float elementalDamageTaken = elementalDamage * (1 - elementalResistance);
         
-        entity?.ReciveKnockback(knockback, duration);
-        entityVFX?.PlayOnDamageVfx();
+        TakeKnockback(damageDealer, physicalDamage);
+
         //burada kullanýlan '?' bir null check'tir. eðer boþ deðer varsa hata fýrlatmamasý için. 
 
-        ReduceHp(finalDamage);
-        Debug.Log("Elemental Damage : " + elementalDamage);
+        ReduceHp(physicalDamage + elementalDamageTaken);
 
         return true;
+    }
+
+    private void TakeKnockback(Transform damageDealer, float finalDamage) {
+        Vector2 knockback = CalculateKnockback(finalDamage, damageDealer);
+        float duration = CalculationDuration(finalDamage);
+
+        entity?.ReciveKnockback(knockback, duration);
     }
 
     private bool AttackEvaded() => UnityEngine.Random.Range(0, 100) < stats.GetEvasion();
 
     protected void ReduceHp(float damage) {
 
+        entityVFX?.PlayOnDamageVfx();
         currentHp -= damage;
         UpdateHealth();
 

@@ -6,13 +6,13 @@ public class Enemy_Health : Entity_Health {
                                        // Bu þekilde de componenti alýnabilir ama her çaðýrýlan enemy için tekrar oluþturur birkaç kez kullanýma uygundur. 
 
     private void Start() {
-         
+
         enemy = GetComponent<Enemy>();
     }
 
-    public override bool TakeDamage(float damage ,float elementalDamage ,Transform damageDealer) {
+    public override bool TakeDamage(float damage, float elementalDamage, ElementalType element, Transform damageDealer) {
 
-        bool wasHit = base.TakeDamage(damage ,elementalDamage ,damageDealer);
+        bool wasHit = base.TakeDamage(damage, elementalDamage, element, damageDealer);
 
         if (wasHit == false) {
             return false;

@@ -8,7 +8,7 @@ public class Chest : MonoBehaviour, IDamagable {
 
     [Header("Open Detalis")]
     [SerializeField] private Vector2 knockback;
-    public bool TakeDamage(float damage, float elementalDamage ,Transform damageDealer) {
+    public bool TakeDamage(float damage, float elementalDamage ,ElementalType element, Transform damageDealer) {
         fx.PlayOnDamageVfx();
         anim.SetBool("openChest", true);
         rb.linearVelocity = knockback;
