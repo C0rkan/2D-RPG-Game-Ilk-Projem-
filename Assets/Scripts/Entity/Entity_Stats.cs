@@ -31,6 +31,35 @@ public class Entity_Stats : MonoBehaviour
 
     }
 
+    public float GetElementalDamage() {
+        float fireDamage = offense.fireDamage.GetValue();
+        float iceDamage = offense.iceDamage.GetValue();
+        float lightningDamage = offense.lightningDamage.GetValue();
+        float bonusElemantalDamage = major.intelligence.GetValue();
+
+        float highestDamage = fireDamage;
+
+        if(iceDamage > highestDamage)
+            highestDamage = iceDamage;
+        
+        if(lightningDamage > highestDamage)
+            highestDamage = lightningDamage;
+
+        
+        if(highestDamage <= 0)
+            return 0;
+
+        float bonusFireDamage = (fireDamage == highestDamage)? 0 : fireDamage * .5f;
+        float bonusIceDaamge = (iceDamage == highestDamage) ? 0 : iceDamage * .5f;
+        float bonusLightningDamage = (lightningDamage == highestDamage) ? 0 : lightningDamage * .5f;
+
+        float weakerElementsDamage = bonusFireDamage + bonusIceDaamge + bonusLightningDamage;
+
+        float finalElementalDamage = highestDamage + weakerElementsDamage + bonusElemantalDamage;
+
+        return finalElementalDamage;
+    }
+
     public float GetArmorMitigation( float armorReduction ) {
         float baseArmor = defense.armor.GetValue();
         float bonusArmor = major.vitality.GetValue(); // Every vit point gives 1 armor

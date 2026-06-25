@@ -33,7 +33,7 @@ public class Entity_Health : MonoBehaviour, IDamagable
     }
 
 
-    public virtual bool TakeDamage(float damage,Transform damageDealer) {
+    public virtual bool TakeDamage(float damage ,float elementalDamage ,Transform damageDealer) {
 
         if (isDead)
             return false;
@@ -46,7 +46,7 @@ public class Entity_Health : MonoBehaviour, IDamagable
         Entity_Stats attackerStats = damageDealer.GetComponent<Entity_Stats>();
         float armorReduction = attackerStats != null ? attackerStats.GetArmorReduction() : 0;
 
-
+        
         float mitigation = stats.GetArmorMitigation(armorReduction);
         float finalDamage = damage * ( 1 - mitigation );
 
@@ -58,7 +58,7 @@ public class Entity_Health : MonoBehaviour, IDamagable
         //burada kullanýlan '?' bir null check'tir. eðer boþ deðer varsa hata fýrlatmamasý için. 
 
         ReduceHp(finalDamage);
-        Debug.Log("Final Damage : " + finalDamage);
+        Debug.Log("Elemental Damage : " + elementalDamage);
 
         return true;
     }
