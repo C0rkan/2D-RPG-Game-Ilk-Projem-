@@ -69,6 +69,41 @@ public class Player : Entity {
         stateMachine.Initialize(idleState);
     }
 
+    protected override IEnumerator SlowDownEntityCo(float duration, float slowMultiplier) {
+        float originalMoveSpeed = moveSpeed;
+        float originalJumpForce = jumpForce;
+        float originalAnimSpeed = anim.speed;
+        Vector2 originalWallJump = wallJumpDir;
+        Vector2 originalJumpAttack = jumpAttackVelocity;
+        Vector2[] originalAttackVelocity = new Vector2[attackVelocity.Length];
+        Array.Copy(attackVelocity, originalAttackVelocity, attackVelocity.Length);
+
+        float speedMultiplier = 1 - slowMultiplier;
+
+        moveSpeed *= speedMultiplier;
+        jumpForce *= speedMultiplier;
+        anim.speed *= speedMultiplier;
+        wallJumpDir *= speedMultiplier;
+        jumpAttackVelocity *= speedMultiplier;
+
+        for (int i = 0; i < attackVelocity.Length; i++;) {
+            attackVelocity[i] *= speedMultiplier;
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        moveSpeed = originalMoveSpeed;
+        jumpForce = originalJumpForce;
+        anim.speed = originalAnimSpeed;
+        wallJumpDir = originalWallJump;
+        jumpAttackVelocity = originalJumpAttack;
+
+        for (int i = 0; i < attackVelocity.Length; i++) {
+            attackVelocity[i] = originalAttackVelocity[i];
+        }
+
+    }
+
     public override void EntityDeath() {
         base.EntityDeath();
         OnPlayerDeath.Invoke();

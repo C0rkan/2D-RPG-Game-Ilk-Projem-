@@ -1,4 +1,6 @@
  using System.Diagnostics.Contracts;
+using UnityEditor;
+using UnityEditor.Experimental.Licensing;
 using UnityEngine;
 
 public class Entity_Combat : MonoBehaviour {
@@ -11,6 +13,9 @@ public class Entity_Combat : MonoBehaviour {
     [SerializeField] private float targetCheckRadius = 1;
     [SerializeField] private LayerMask whatIsTarget;
 
+    [Header("Status Effect details")]
+    [SerializeField] private float defaultDuration = 3;
+    [SerializeField] private float chillSlowMultiplier = .2f;
 
     private void Awake() {
         vfx = GetComponent<EntityVFX>();
@@ -30,8 +35,13 @@ public class Entity_Combat : MonoBehaviour {
             float elementalDamage = stats.GetElementalDamage(out ElementalType element);
             float damage = stats.GetPhyiscalDamage(out bool isCrit);
             bool targetGotHit = damagable.TakeDamage(damage ,elementalDamage ,element ,transform);                //same as    if(targetHelath != null) 
-            
+
+            if (element != ElementalType.None) {
+                ApplyStatusEffect(target.transform, element);
+            }
+
             if (targetGotHit) {
+                vfx.UpdateOnHitColor(element);
                 vfx.CreateOnHitVFX(target.transform,isCrit);                                //              tagetHealth.TakeDamage(daamge);
             }
 
@@ -39,6 +49,20 @@ public class Entity_Combat : MonoBehaviour {
         }
 
     }
+
+    private void ApplyStatusEffect(Transform target, ElementalType element) {
+
+        Entity_StatusHandler statusHandler = target.GetComponent<Entity_StatusHandler>();
+
+        if (statusHandler == null){
+            return;
+        }
+
+        if (element== ElementalType.Ice && statusHandler.CanBeApplied(ElementalType.Ice)) {
+            statusHandler.ApplyChilledEffect(defaultDuration, chillSlowMultiplier);
+        }
+    }
+
 
     protected Collider2D[] GetDetectedColliders() {
 
