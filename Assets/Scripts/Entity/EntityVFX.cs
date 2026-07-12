@@ -22,6 +22,7 @@ public class EntityVFX : MonoBehaviour {
     [Header("Element Colors")]
     [SerializeField] private Color chillVfx = Color.cyan;
     [SerializeField] private Color burnVfx = Color.red;
+    [SerializeField] private Color electrifyVfx = Color.yellow;
     private Color originalHitVfxColor;
 
     private void Awake() {
@@ -40,6 +41,15 @@ public class EntityVFX : MonoBehaviour {
             StartCoroutine(PlayStatusVfxCo(duration, burnVfx));
         }
 
+        if (element == ElementalType.Lightnig) {
+            StartCoroutine(PlayStatusVfxCo(duration, electrifyVfx));
+        }
+    }
+
+    public void StopAllVfx() {
+        StopAllCoroutines();
+        sr.color = Color.white;
+        sr.material = originalMaterial;
     }
 
     private IEnumerator PlayStatusVfxCo(float duration, Color effectColor) {

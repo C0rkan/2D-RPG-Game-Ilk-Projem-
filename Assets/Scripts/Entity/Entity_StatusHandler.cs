@@ -10,11 +10,55 @@ public class Entity_StatusHandler : MonoBehaviour
     private Entity entity;
     private Entity_Health entityHealth;
 
+    [Header("Electrify effect details")]
+    [SerializeField] private GameObject lightningStrikeVfx;
+    [SerializeField] private float currentCharge;
+    [SerializeField] private float maximumCharge = 1;
+    private Coroutine electrifyCo;
+
     private void Awake() {
         entity = GetComponent<Entity>();
         entityVfx = GetComponent<EntityVFX>();
         stats = GetComponent<Entity_Stats>();
         entityHealth = GetComponent<Entity_Health>();
+    }
+
+    public void ApplyElectrifyEffect(float duration, float damage, float charge) {
+        float lightningResistance = stats.GetElementalResitance(ElementalType.Lightnig);
+        float finalCharge = charge * (1 - lightningResistance) ;
+        
+        currentCharge += finalCharge;
+
+        if (currentCharge >= 1) {
+            DoLightningStrike(damage);
+            StopElectrifyEffect();
+            return;
+        }
+        if (electrifyCo != null) {
+            StopCoroutine(electrifyCo);
+        }
+
+        electrifyCo = StartCoroutine(ElectrifyEffectCo(duration));
+    }
+
+    private void StopElectrifyEffect() {
+        currentEffect = ElementalType.None;
+        currentCharge = 0;
+        entityVfx.StopAllVfx();
+    }
+
+    private void DoLightningStrike(float damage) {
+        Instantiate(lightningStrikeVfx,transform.position,Quaternion.identity);
+        entityHealth.ReduceHp(damage);
+    }
+
+    private IEnumerator ElectrifyEffectCo(float duration) {
+
+        currentEffect = ElementalType.Lightnig;
+        entityVfx.PlayOnStatusVfx(duration, ElementalType.Lightnig);
+
+        yield return new WaitForSeconds(duration);
+        StopElectrifyEffect();
     }
 
     public void ApplyBurnEffect(float duration, float fireDamage) {
@@ -62,6 +106,10 @@ public class Entity_StatusHandler : MonoBehaviour
     }
 
     public bool CanBeApplied(ElementalType element) {
+        if (element == ElementalType.Lightnig && currentEffect == ElementalType.Lightnig) {
+            return true;
+        }
+        
         return currentEffect == ElementalType.None;
     }
 
