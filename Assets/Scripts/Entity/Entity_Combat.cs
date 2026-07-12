@@ -32,7 +32,7 @@ public class Entity_Combat : MonoBehaviour {
             if (damagable == null) {
                 continue;
             }
-            float elementalDamage = stats.GetElementalDamage(out ElementalType element);
+            float elementalDamage = stats.GetElementalDamage(out ElementalType element, .6f);
             float damage = stats.GetPhyiscalDamage(out bool isCrit);
             bool targetGotHit = damagable.TakeDamage(damage ,elementalDamage ,element ,transform);                //same as    if(targetHelath != null) 
 
@@ -50,7 +50,7 @@ public class Entity_Combat : MonoBehaviour {
 
     }
 
-    private void ApplyStatusEffect(Transform target, ElementalType element) {
+    private void ApplyStatusEffect(Transform target, ElementalType element, float scaleFactor = 1) {
 
         Entity_StatusHandler statusHandler = target.GetComponent<Entity_StatusHandler>();
 
@@ -58,8 +58,12 @@ public class Entity_Combat : MonoBehaviour {
             return;
         }
 
-        if (element== ElementalType.Ice && statusHandler.CanBeApplied(ElementalType.Ice)) {
+        if (element == ElementalType.Ice && statusHandler.CanBeApplied(ElementalType.Ice)) {
             statusHandler.ApplyChilledEffect(defaultDuration, chillSlowMultiplier);
+        }
+        if (element == ElementalType.Fire && statusHandler.CanBeApplied(ElementalType.Fire)) {
+            float fireDamage = stats.offense.fireDamage.GetValue() * scaleFactor;
+            statusHandler.ApplyBurnEffect(defaultDuration, fireDamage); 
         }
     }
 

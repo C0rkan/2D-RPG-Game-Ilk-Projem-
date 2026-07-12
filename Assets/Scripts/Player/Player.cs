@@ -86,7 +86,7 @@ public class Player : Entity {
         wallJumpDir *= speedMultiplier;
         jumpAttackVelocity *= speedMultiplier;
 
-        for (int i = 0; i < attackVelocity.Length; i++;) {
+        for (int i = 0; i < attackVelocity.Length; i++) {
             attackVelocity[i] *= speedMultiplier;
         }
 

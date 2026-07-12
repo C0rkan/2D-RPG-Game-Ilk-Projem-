@@ -8,11 +8,39 @@ public class Entity_StatusHandler : MonoBehaviour
     private EntityVFX entityVfx;
     private Entity_Stats stats;
     private Entity entity;
+    private Entity_Health entityHealth;
 
     private void Awake() {
         entity = GetComponent<Entity>();
         entityVfx = GetComponent<EntityVFX>();
         stats = GetComponent<Entity_Stats>();
+        entityHealth = GetComponent<Entity_Health>();
+    }
+
+    public void ApplyBurnEffect(float duration, float fireDamage) {
+
+        float fireResistance = stats.GetElementalResitance(ElementalType.Fire);
+        float finalDamage = fireDamage * (1 - fireResistance);
+
+        StartCoroutine(BurnEffectCo(duration, finalDamage));
+    }
+
+    public IEnumerator BurnEffectCo(float duration, float totalDamage) {
+        currentEffect = ElementalType.Fire;
+        entityVfx.PlayOnStatusVfx(duration,ElementalType.Fire);
+
+        int ticksPerSecond = 2;
+        int ticksCount = Mathf.RoundToInt(ticksPerSecond * duration);
+        
+        float damagePerTick = totalDamage / ticksCount;
+        float tickInterval = 1f / ticksPerSecond;
+
+        for (int i = 0; i < ticksCount; i++) {
+            entityHealth.ReduceHp(damagePerTick);
+            yield return new WaitForSeconds(tickInterval);
+        }
+
+        currentEffect = ElementalType.None;
     }
 
     public void ApplyChilledEffect(float duration, float slowMultiplier) {
